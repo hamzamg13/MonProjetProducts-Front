@@ -1,0 +1,31 @@
+<!--<button (click)="faireQuelqueChose()" type="button" class="btn btn-primary">Faire quelque chose</button>-->
+
+<!--<input type="text" [(ngModel)]="valeur">-->
+<!--<br>-->
+<!--<h2>Vous avez tapé {{valeur}}</h2>-->
+<!--<hr/>-->
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Liste des produits
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Code du produit</th>
+        <th>Nom du produit</th>
+        <th>Prix Unitaire</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let d of data">
+        <td scope="row">{{ d.id }}</td>
+        <!--<td scope="row" [style.color]="couleur">{{ d.nom }}</td>-->
+        <td scope="row">{{ d.nom }}</td>
+        <td scope="row">{{ d.prixUnitaire }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
