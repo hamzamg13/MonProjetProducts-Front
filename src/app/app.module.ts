@@ -10,13 +10,21 @@ import { FooterComponent } from './components/footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProductsAddComponent } from './components/products-add/products-add.component';
+import { ProductsDetailComponent } from './components/products-detail/products-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ProductsListComponent,
-    FooterComponent
+    FooterComponent,
+    WelcomeComponent,
+    NotFoundComponent,
+    ProductsAddComponent,
+    ProductsDetailComponent
   ],
   imports: [
     BrowserModule,
