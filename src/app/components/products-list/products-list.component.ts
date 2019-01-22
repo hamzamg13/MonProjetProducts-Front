@@ -17,7 +17,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data = this._service.getAllProducts().subscribe(
+     this._service.getAllProducts().subscribe(
       resp => this.data = resp,
       erreur => console.log(`ATTENTION, Il y a l'erreur ${erreur}`)
     );
