@@ -20,12 +20,20 @@
       </thead>
       <tbody>
       <tr *ngFor="let d of data">
-        <td scope="row">{{ d.id }}</td>
+        <td scope="row"> {{ d.id }}</td>
         <!--<td scope="row" [style.color]="couleur">{{ d.nom }}</td>-->
-        <td scope="row">{{ d.nom }}</td>
+        <td scope="row">
+          <a [routerLink]="['/detail', d.id]" routerLinkActive="$router_link-active$">
+            {{ d.nom }}
+          </a>
+        </td>
         <td scope="row">{{ d.prixUnitaire }}</td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+
+<!--<button type="button" class="btn btn-primary" [routerLink]="['/detail']" routerLinkActive="$router_link-active$"> <<< Previous </button>-->
+<!--<button type="button" class="btn btn-primary" [routerLink]="['/detail']" routerLinkActive="$router_link-active$">Previous >>> </button>-->
