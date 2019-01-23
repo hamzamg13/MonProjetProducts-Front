@@ -16,5 +16,12 @@
         <a class="nav-link" [routerLink]="['/add']" routerLinkActive="$router_link-active$">Creation</a>
       </li>
     </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a *ngIf="!isLoggedIn()" class="nav-link" [routerLink]="['/login']"
+           routerLinkActive="$router_link-active$">Login</a>
+        <a *ngIf="isLoggedIn()" class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>

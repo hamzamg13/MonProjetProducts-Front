@@ -1,3 +1,67 @@
-<p>
-  products-add works!
-</p>
+<div class="card offset-lg-2 col-lg-8">
+  <div class="card-header bg-info text-white">
+    <h4>Ajout d'un nouveau Produit</h4>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <form [formGroup]="form" (ngSubmit)="addProduct(form.value)" novalidate>
+        <!--novalidate for "I don't validate with HTML5" -->
+        <!--For Code-->
+        <div class="form-group row">
+          <label class=" col-lg-3 col-form-label">Code du produit</label>
+          <div class="col-lg-4">
+            <input formControlName="id"
+                   type="text"
+                   class="form-control"
+                   name=""
+                   aria-describedby="helpId"
+                   placeholder="Code">
+          </div>
+          <div *ngIf="form.get('id').touched && form.get('id').invalid" class="col-lg-5 text-danger">
+            <div>Le code est obligatoire</div>
+          </div>
+        </div>
+        <!--For name-->
+        <div class="form-group row">
+          <label class=" col-lg-3 col-form-label">Nom du produit</label>
+          <div class="col-lg-4">
+            <input formControlName="nom"
+                   type="text"
+                   class="form-control"
+                   name=""
+                   aria-describedby="helpId"
+                   placeholder="Nom">
+          </div>
+          <div *ngIf="form.get('nom').touched && form.get('nom').invalid" class="col-lg-5 text-danger">
+            <div>Le nom est obligatoire</div>
+          </div>
+        </div>
+        <!--For price-->
+        <div class="form-group row">
+          <label class=" col-lg-3 col-form-label">Prix Unitaire</label>
+          <div class="col-lg-4">
+            <input formControlName="prixUnitaire"
+                   type="text"
+                   class="form-control"
+                   name=""
+                   aria-describedby="helpId"
+                   placeholder="prixUnitaire">
+          </div>
+          <div *ngIf="form.get('prixUnitaire').touched && form.get('prixUnitaire').invalid"
+               class="col-lg-5 text-danger">
+            <div *ngIf="form.controls['prixUnitaire'].errors.required">Le prix est obligatoire</div>
+            <div *ngIf="form.controls['prixUnitaire'].errors.pattern">La forme du prix doit être numérique</div>
+          </div>
+        </div>
+        <!--For buttons-->
+        <div class="form-group row">
+          <div class="offset-lg-3 col-lg-8">
+            <button type="reset" class="btn btn-info">Réinitialiser</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Envoyer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

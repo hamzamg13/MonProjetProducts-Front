@@ -1,0 +1,50 @@
+<div class="card offset-lg-2 col-lg-8">
+  <div class="card-header bg-info text-white">
+    <h4>Login Form</h4>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <form [formGroup]="form" (ngSubmit)="login(form.value)" novalidate>
+        <!--novalidate for "I don't validate with HTML5" -->
+        <!--For Code-->
+        <div class="form-group row">
+          <label class=" col-lg-3 col-form-label">User Name</label>
+          <div class="col-lg-4">
+            <input formControlName="username"
+                   type="text"
+                   class="form-control"
+                   name=""
+                   aria-describedby="helpId"
+                   placeholder="username">
+          </div>
+          <div *ngIf="form.get('username').touched && form.get('username').invalid" class="col-lg-5 text-danger">
+            <div>username est obligatoire</div>
+          </div>
+        </div>
+        <!--For name-->
+        <div class="form-group row">
+          <label class=" col-lg-3 col-form-label">Password</label>
+          <div class="col-lg-4">
+            <input formControlName="password"
+                   type="password"
+                   class="form-control"
+                   name=""
+                   aria-describedby="helpId"
+                   placeholder="password">
+          </div>
+          <div *ngIf="form.get('password').touched && form.get('password').invalid" class="col-lg-5 text-danger">
+            <div>mot de passe est obligatoire</div>
+          </div>
+        </div>
+        <!--For buttons-->
+        <div class="form-group row">
+          <div class="offset-lg-3 col-lg-8">
+            <button type="reset" class="btn btn-info">Réinitialiser</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

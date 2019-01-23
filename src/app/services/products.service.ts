@@ -9,13 +9,18 @@ import {Observable} from 'rxjs';
 })
 export class ProductsService {
 
-  constructor(private _http: HttpClient) { } // DI
+  constructor(private _http: HttpClient) {
+  } // DI
 
   getAllProducts(): Observable<IProduct[]> {
     return this._http.get<IProduct[]>(environment.URL_Fake);
   }
 
   getAllProductsById(id: string): Observable<IProduct> {
-    return this._http.get<IProduct>(environment.URL_Fake + '/' +  id );
+    return this._http.get<IProduct>(environment.URL_Fake + '/' + id);
+  }
+
+  addProduct(product: IProduct): Observable<IProduct> {
+    return this._http.post<IProduct>(environment.URL_Fake, product);
   }
 }
