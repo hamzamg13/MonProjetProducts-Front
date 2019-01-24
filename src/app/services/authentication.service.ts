@@ -1,32 +1,41 @@
-import {Injectable} from '@angular/core';
-import {IUser} from '../domain/iuser';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  loggedIn: boolean = false;
+  URL: string = environment.URL_AUTH;      // UR_AUTH doit pointer sur http://localhost:8080/auth
+  constructor(private _http: HttpClient) { }
 
-  constructor() {
+  login(username: string, password: string) {
+    return this._http.post<any>(this.URL, { username: username, password: password })
+      .pipe(map((res: any) => {
+        if (res && res.token) {
+          localStorage.setItem('currentUser', JSON.stringify({ username, token: res.token }));
+        }
+      }));
   }
 
-  authenticate(user: IUser): string {
-    if (user.username === 'toto' && user.password === 'password') {
-      const token: string = '000AAA TOKEN 0000';
-      localStorage.setItem('TOKEN', token);
-      return token;
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+  }
+
+  isLoggedIn(): boolean {
+    return ( localStorage.getItem('currentUser')) ? true : false;
+  }
+
+  getJwtClaim(claim: string): string {
+    const stored = localStorage.getItem('currentUser');
+    if (stored) {
+      return (new JwtHelperService()).decodeToken(JSON.parse(stored).token)[claim];
     }
+    return null;
   }
 
-  logout(): void {
-    if (localStorage.getItem('TOKEN')) {
-      this.loggedIn = false;
-      localStorage.removeItem('TOKEN');
-    }
-  }
-
-  isAuthenticated(): boolean {
-    return this.loggedIn;
-  }
 }

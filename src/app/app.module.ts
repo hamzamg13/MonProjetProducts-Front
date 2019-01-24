@@ -9,12 +9,13 @@ import {FooterComponent} from './components/footer/footer.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {ProductsAddComponent} from './components/products-add/products-add.component';
 import {ProductsDetailComponent} from './components/products-detail/products-detail.component';
-import { LoginComponent } from './components/login/login.component';
+import {LoginComponent} from './components/login/login.component';
+import {JwtInterceptor} from './interceptors/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { LoginComponent } from './components/login/login.component';
     NotFoundComponent,
     ProductsAddComponent,
     ProductsDetailComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,13 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

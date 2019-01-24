@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
     <div class="container-fluid">
-      <form [formGroup]="form" (ngSubmit)="login(form.value)" novalidate>
+      <form [formGroup]="form" (ngSubmit)="onLogin(form.value)" novalidate>
         <!--novalidate for "I don't validate with HTML5" -->
         <!--For Code-->
         <div class="form-group row">
@@ -39,9 +39,9 @@
         <!--For buttons-->
         <div class="form-group row">
           <div class="offset-lg-3 col-lg-8">
-            <button type="reset" class="btn btn-info">Réinitialiser</button>
-            &nbsp; &nbsp;
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Login</button>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid" >Se connecter</button>
+            &nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary">Réinitialiser</button>
           </div>
         </div>
       </form>

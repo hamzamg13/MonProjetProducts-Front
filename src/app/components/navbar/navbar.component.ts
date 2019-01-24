@@ -18,8 +18,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  isAdmin(): boolean {
+    return this._service.getJwtClaim('sub') === 'admin';
+  }
+
   isLoggedIn(): boolean {
-    return this._service.isAuthenticated();
+    return this._service.isLoggedIn();
   }
 
   logout() {

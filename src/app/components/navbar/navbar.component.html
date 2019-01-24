@@ -9,18 +9,20 @@
   <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="collapsibleNavId">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/list']" routerLinkActive="$router_link-active$">Produits<span
+        <a *ngIf="isLoggedIn() && isAdmin()" class="nav-link" [routerLink]="['/list']" routerLinkActive="$router_link-active$">Produits<span
           class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/add']" routerLinkActive="$router_link-active$">Creation</a>
+        <a *ngIf="isLoggedIn()" class="nav-link" [routerLink]="['/add']" routerLinkActive="$router_link-active$">Creation</a>
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a *ngIf="!isLoggedIn()" class="nav-link" [routerLink]="['/login']"
-           routerLinkActive="$router_link-active$">Login</a>
-        <a *ngIf="isLoggedIn()" class="nav-link" (click)="logout()">Logout</a>
+      <li class="nav-item" *ngIf="!isLoggedIn()">
+        <a class="nav-link"
+           [routerLink]="['/login']"
+           [queryParams]="{  'returnUrl' : '/' }">Login</a> </li>
+      <li class="nav-item" *ngIf="isLoggedIn()">
+        <a class="nav-link" routerLink= '/logout'>Logout</a>
       </li>
     </ul>
   </div>

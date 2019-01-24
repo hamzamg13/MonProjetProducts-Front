@@ -7,17 +7,20 @@ import {ProductsAddComponent} from './components/products-add/products-add.compo
 import {ProductsDetailComponent} from './components/products-detail/products-detail.component';
 import {ProductsDetailGuard} from './guards/products-detail.guard';
 import {LoginComponent} from './components/login/login.component';
+import {LogoutResolver} from './resolvers/logout.resolver';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
-  {path: 'list', component: ProductsListComponent},
-  {path: 'add', component: ProductsAddComponent},
+  {path: 'list', component: ProductsListComponent, canActivate: [AuthGuard]},
+  {path: 'add', component: ProductsAddComponent,  canActivate: [AuthGuard]},
   {
     path: 'detail/:id',
     component: ProductsDetailComponent,
-    canActivate: [ProductsDetailGuard]
+    canActivate: [AuthGuard, ProductsDetailGuard]
   },
   {path: 'login', component: LoginComponent},
+  {path: 'logout', component: WelcomeComponent, resolve: [LogoutResolver]},
   {path: '**', component: NotFoundComponent}
 ];
 

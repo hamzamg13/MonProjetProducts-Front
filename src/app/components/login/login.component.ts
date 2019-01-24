@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IUser} from '../../domain/iuser';
-import {Router} from '@angular/router';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+
+import {first} from 'rxjs/operators';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +13,43 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
 
-  constructor(private _fb: FormBuilder,
-              private _router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.form = this._fb.group({
+    this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    // reset login status
+    this.authenticationService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login(user: IUser): void {
-    console.log('Vous avez saisi le user' + ' ' + user.username + '  ' + user.password);
-
-    this._router.navigateByUrl('/');
+  onLogin(c: any) {
+    this.loading = true;
+    this.authenticationService.login(c.username, c.password)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log('AUTHENTIFICATION REUSSIE, Vérifier que le token a été généré');
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
-
 }
